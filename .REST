@@ -1,0 +1,36 @@
+GET http://localhost:3000/todo/all
+###
+
+POST http://localhost:3000/todo/createTodo
+Content-Type: application/json
+
+{
+    "header": "Hello World2",
+    "description": "This is a test.",
+    "completed": "true"
+}
+###
+POST http://localhost:3000/todo/createTodo
+Content-Type: application/x-www-form-urlencoded
+
+header=Hello%20World2
+&description=This%20is%20a%20test.
+&completed=true
+
+###
+POST http://localhost:3000/user/register
+Content-Type: application/json
+
+{
+    "username": "hey", 
+    "password": "hey", 
+    "confirmPassword": "hey"
+}
+###
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+    "username": "hello", 
+    "password": "hello", 
+}

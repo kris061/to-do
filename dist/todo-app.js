@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 function fetchTodos() {
     return __awaiter(this, void 0, void 0, function* () {
         return fetch("http://127.0.0.1:3000/todo/all")
@@ -17,18 +18,21 @@ function fetchTodos() {
 }
 function loadTodos() {
     return __awaiter(this, void 0, void 0, function* () {
-        var orderedList = document.querySelector(".result");
+        var orderedList = document.querySelector(".todosList");
         var fetchedTodos = yield fetchTodos();
         var template = "";
         fetchedTodos.forEach(item => {
             template += `
-        <li value="${item._id}">
-            <div>
+        <li>
+            <details>
+             <summary>
                 <input type="checkbox" ${item.completed ? "checked" : ""} onclick="updateTodos('${item._id}', ${item.completed})">
-                <b>${item.header}</b>
+                <span>${item.header}</span>
                 <button onclick="removeTodo('${item._id}')">DELETE</button>
-            </div>
-            <span>${item.description}</span>
+             </summary>
+             <p>ID: ${item._id}</p>
+                <span>${item.description}</span>
+            </details>
         </li>`;
         });
         orderedList.innerHTML = template;
@@ -58,6 +62,8 @@ function updateTodos(id, completed) {
         });
     });
 }
+const createTodoDialogBox = document.querySelector(".createTodoDialogBox");
+const createTodoDialogBox2 = document.querySelector(".createTodoDialogBox");
 function addTodos() {
     return __awaiter(this, void 0, void 0, function* () {
         var todoHeader = document.querySelector("#todoHeader");
@@ -81,11 +87,28 @@ function addTodos() {
             const blue = 113;
             const green = 113;
             var errorMessageCodeColor = `rgb(${red}, ${green}, ${blue})`;
-            todoHeader.style.backgroundColor = data.duplicate ? errorMessageCodeColor : "unset";
+            if (data.duplicate) {
+                todoHeader.style.backgroundColor = errorMessageCodeColor;
+            }
+            else {
+                todoHeader.style.backgroundColor = 'unset';
+                createTodoDialogBox.close();
+                createTodoDialogBox.style.display = "none";
+            }
             yield loadTodos();
         }));
     });
 }
+const showCreateTodoDialogBoxButton = document.querySelector(".showCreateTodoDialogBoxButton");
+const leaveCreateTodoDialogBoxButton = document.querySelector(".leaveCreateTodoDialogBoxButton");
+showCreateTodoDialogBoxButton.addEventListener("click", function () {
+    createTodoDialogBox.showModal();
+    createTodoDialogBox.style.display = "flex";
+});
+leaveCreateTodoDialogBoxButton.addEventListener("click", function () {
+    createTodoDialogBox.close();
+    createTodoDialogBox.style.display = "none";
+});
 var insertTodoButton = document.querySelector(".insertTodoButton");
 insertTodoButton.addEventListener("click", () => { addTodos(); });
 window.addEventListener("load", () => __awaiter(void 0, void 0, void 0, function* () { yield loadTodos(); }));

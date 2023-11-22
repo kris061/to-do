@@ -1,0 +1,61 @@
+/* PAGE LAYOUT */
+html { height: 100vh; }
+
+body {
+    height: inherit; 
+    margin: 0;
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+nav { background-color: #ebe9f1; }
+
+/* Styling related to TODO Creator Modal Dialog. */
+
+.createTodoDialogBox {
+    min-width: 500px;
+    flex-direction: column;
+    border: none;
+    max-height: 600px;
+}
+
+header {
+    color: white;
+    background-color: #8e82b1;
+    padding: 1rem 0.5rem;
+    font-weight: bold;
+}
+.createTodoDialogBox > :not(.createTodoOptions, header) { align-self: self-end; }
+.createTodoDialogBox > div { margin-bottom: 1rem; }
+
+#todoDescription, #todoHeader { 
+    width: 100%;
+    padding: 0; 
+    border: none;
+    background-color: #f5f4f7;
+}
+#todoDescription:focus, #todoHeader:focus { 
+    filter: brightness(90%);
+    outline: none;
+ } 
+
+#todoDescription { resize: none; }
+
+.createTodoOptions { box-sizing: border-box; }
+.createTodoButtons { display: inline-block;}
+
+/* Styling related to TODOS */
+
+details {
+    border-radius: 10px;
+    padding: 1rem;
+    background-color: #f5f4f7;
+}
+
+summary {
+    font-weight: bold;
+    padding: 2px;
+}
+
+.todosList { list-style-type: none; }
+.todosList li { margin-bottom: 1rem; }  
